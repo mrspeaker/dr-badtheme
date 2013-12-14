@@ -16,11 +16,12 @@
 
             Ω.input.bind({
                 "fire": ["space", "mouse1", "touch"],
+                "swap": [90],
                 "escape": "escape",
                 "left": "left",
                 "right": "right",
                 "up": "up",
-                "down": "down"
+                "down": "down",
             });
 
         },

@@ -22,6 +22,15 @@
 
             return this.y > 0;
 
+        },
+
+        render: function (gfx) {
+
+            var c = gfx.ctx;
+
+            c.fillStyle = "#cc0";
+            c.fillRect(this.x, this.y, this.w, this.h);
+
         }
 
     });

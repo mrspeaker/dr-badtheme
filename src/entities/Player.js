@@ -17,10 +17,11 @@
 
         lastShot: 0,
 
-        init: function (x, y) {
+        init: function (x, y, screen) {
 
             this.x = x;
             this.y = y;
+            this.screen = screen;
 
             this.lastShot = Ω.utils.now();
 
@@ -75,12 +76,21 @@
                     this.fire();
                 }
             }
+
+            if (Ω.input.pressed("swap")) {
+                this.swapBinary();
+            }
+
         },
 
         fire: function () {
             this.bullets.push(
                 new Bullet(this.x + 7, this.y - 2)
             );
+        },
+
+        swapBinary: function () {
+            this.screen.swapBinary();
         },
 
         hit: function (b) {

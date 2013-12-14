@@ -6,7 +6,7 @@
 
         init: function () {
 
-            this.player = new Player(Ω.env.w / 2 - 10, Ω.env.h - 50);
+            this.player = new Player(Ω.env.w / 2 - 10, Ω.env.h - 50, this);
             this.binary = [];
             this.lastBomb = Ω.utils.now();
 
@@ -29,6 +29,12 @@
                 );
             }
 
+        },
+
+        swapBinary: function () {
+            this.binary.forEach(function (b) {
+                b.isOne = !b.isOne;
+            });
         },
 
         render: function (gfx) {
