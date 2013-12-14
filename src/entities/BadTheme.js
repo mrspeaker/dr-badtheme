@@ -39,10 +39,7 @@
                 this.state.set("INTRO");
                 break;
             case "INTRO":
-                this.y += this.speedDescend;
-                if (this.y >= this.targetY) {
-                    this.state.set("PATROL");
-                }
+                this.state_INTRO();
                 break;
             case "PATROL":
                 this.state_PATROL();
@@ -56,11 +53,24 @@
 
         },
 
+        state_INTRO: function () {
+            this.y += this.speedDescend;
+            if (this.y >= this.targetY) {
+                this.state.set("PATROL");
+            }
+        },
+
         state_PATROL: function () {
 
-            var now = Ω.utils.now();
+            this.x += Math.sin(Ω.utils.now() / this.speedPatrolX) * 0.9;
 
-            this.x += Math.sin(now / this.speedPatrolX) * 0.9;
+            this.spawnBinary();
+
+        },
+
+        spawnBinary: function () {
+
+            var now = Ω.utils.now();
 
             if (now - this.lastBomb > 500) {
                 this.lastBomb = now;
@@ -69,7 +79,6 @@
                 }
                 this.screen.spawnBinary(this.isOnes, this);
             }
-
         },
 
         hit: function (e) {
