@@ -17,6 +17,8 @@
         health: 100,
         healthRate: 20,
 
+        hitTime: 0,
+
         init: function (x, y, screen) {
             this.x = x;
             this.y = y - 150;
@@ -75,6 +77,7 @@
         hit: function (e) {
 
             if (e instanceof Bullet) {
+                this.hitTime = 5;
                 this.health = Math.max(-1, this.health - this.healthRate);
                 if (this.health < 0) {
                     this.remove = true;
@@ -87,7 +90,8 @@
 
             var c = gfx.ctx;
 
-            c.fillStyle = "#cc0";
+            c.fillStyle = this.hitTime-- > 0 ? "#fff" : "#c0c";
+
             c.fillRect(this.x, this.y, this.w, this.h);
 
         }
