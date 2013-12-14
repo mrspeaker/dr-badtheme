@@ -36,11 +36,11 @@
         render: function (gfx) {
             var c = gfx.ctx;
 
-            //c.fillStyle = this.isOne ? "#0c0" : "#f80";
+            //c.fillStyle = this.isOne ? "#444" : "#222";
             //c.fillText(this.isOne ? "1" : "0", this.x - 2, this.y + this.h - 2);
             //c.fillRect(this.x, this.y, this.w, this.h);
 
-            this.sheet.render(gfx, this.isOne ? 1 : 0, 0, this.x - 2, this.y - 1);
+            this.sheet.render(gfx, this.isOne ? 1 : 0, 0, this.x - 2, this.y);
 
         }
     });
