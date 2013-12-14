@@ -1,4 +1,4 @@
-(function (Ω) {
+(function (Ω, Bullet) {
 
     "use strict";
 
@@ -15,15 +15,25 @@
 
         woundTime: 0,
 
+        lastShot: 0,
+
         init: function (x, y) {
 
             this.x = x;
             this.y = y;
+
+            this.lastShot = Ω.utils.now();
+
+            this.bullets = [];
         },
 
         tick: function () {
 
             this.handleInput();
+
+            this.bullets = this.bullets.filter(function (b) {
+                return b.tick();
+            });
             this.woundTime--;
 
         },
@@ -57,6 +67,20 @@
 
             this.x += this.vx;
             this.y += this.vy;
+
+            var now = Ω.utils.now();
+            if (Ω.input.isDown("fire")) {
+                if (now - this.lastShot > 20) {
+                    this.lastShot = now;
+                    this.fire();
+                }
+            }
+        },
+
+        fire: function () {
+            this.bullets.push(
+                new Bullet(this.x + 7, this.y - 2)
+            );
         },
 
         hit: function (b) {
@@ -76,6 +100,10 @@
         render: function (gfx) {
             var c = gfx.ctx;
 
+            this.bullets.forEach(function (b) {
+                b.render(gfx);
+            });
+
             if (this.woundTime > 0 && Ω.utils.toggle(70, 2)) {
                 return;
             }
@@ -87,4 +115,7 @@
 
     window.Player = Player;
 
-}(window.Ω));
+}(
+    window.Ω,
+    window.Bullet
+));

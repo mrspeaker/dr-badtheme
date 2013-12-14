@@ -1,4 +1,4 @@
-(function (Ω) {
+(function (Ω, MainScreen) {
 
     "use strict";
 
@@ -15,14 +15,12 @@
             });
 
             Ω.input.bind({
-                "space": "space",
-                "touch": "touch",
+                "fire": ["space", "mouse1", "touch"],
                 "escape": "escape",
                 "left": "left",
                 "right": "right",
                 "up": "up",
-                "down": "down",
-                "moused": "mouse1"
+                "down": "down"
             });
 
         },
@@ -37,4 +35,7 @@
 
     window.OmegaGame = OmegaGame;
 
-}(Ω));
+}(
+    window.Ω,
+    window.MainScreen
+));
