@@ -33,7 +33,7 @@
                 if (Ω.utils.oneIn(10)) {
                     this.isOnes = !this.isOnes;
                 }
-                this.screen.spawnBinary(this.isOnes, this.x + this.w / 2, this.y + this.h - 4);
+                this.screen.spawnBinary(this.isOnes, this);
             }
 
             return (!this.remove);

@@ -40,9 +40,11 @@
 
         },
 
-        spawnBinary: function (isOne, x, y) {
+        spawnBinary: function (isOne, b) {
+            var angle = Ω.utils.angleBetween(this.player, b);
+
             this.binary.push(
-                new Binary(isOne, x, y)
+                new Binary(isOne, b.x + b.w / 2, b.y + b.h - 4, angle)
             );
         },
 

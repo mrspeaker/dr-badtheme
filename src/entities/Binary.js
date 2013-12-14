@@ -7,16 +7,18 @@
         w: 8,
         h: 16,
 
-        xspeed: 0,
-        yspeed: 2,
+        speed: 2,
 
         remove: false,
 
-        init: function (isOne, x, y) {
+        init: function (isOne, x, y, angle) {
 
             this.isOne = isOne;
             this.x = x;
             this.y = y;
+
+            this.xspeed = this.speed * Math.cos(angle);
+            this.yspeed = this.speed * Math.sin(angle);
         },
 
         tick: function () {
