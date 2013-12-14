@@ -12,21 +12,52 @@
         remove: false,
         isOnes: false,
 
+        state: null,
+
         init: function (x, y, screen) {
             this.x = x;
-            this.y = y;
+            this.targetY = y;
+            this.y = y - 150;
             this.screen = screen;
 
-            this.speed = Math.random() * 300 + 200;
+            this.speedDescend = 2;
+            this.speedPatrolX = Math.random() * 300 + 200;
 
             this.lastBomb = Ω.utils.now();
+
+            this.state = new Ω.utils.State("BORN");
         },
 
         tick: function () {
 
+            this.state.tick();
+            switch (this.state.get()) {
+            case "BORN":
+                this.state.set("INTRO");
+                break;
+            case "INTRO":
+                this.y += this.speedDescend;
+                if (this.y >= this.targetY) {
+                    this.state.set("PATROL");
+                }
+                break;
+            case "PATROL":
+                this.state_PATROL();
+                break;
+            case "DYING":
+                break;
+            case "DEAD":
+                break;
+            }
+            return (!this.remove);
+
+        },
+
+        state_PATROL: function () {
+
             var now = Ω.utils.now();
 
-            this.x += Math.sin(Ω.utils.now() / this.speed) * 0.9;
+            this.x += Math.sin(now / this.speedPatrolX) * 0.9;
 
             if (now - this.lastBomb > 500) {
                 this.lastBomb = now;
@@ -35,8 +66,6 @@
                 }
                 this.screen.spawnBinary(this.isOnes, this);
             }
-
-            return (!this.remove);
 
         },
 

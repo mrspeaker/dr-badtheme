@@ -34,7 +34,11 @@
             if (now - this.lastBaddie > 2000 && this.baddies.length < 6) {
                 this.lastBaddie = now;
                 this.baddies.push(
-                    new BadTheme(Math.random() * Ω.env.w / 2 + 100, Math.random() * 100 | 0, this, this.player)
+                    new BadTheme(
+                        (Math.random() * Ω.env.w / 2 + 100) | 0,
+                        Ω.utils.rand(150, 10),
+                        this
+                    )
                 );
             }
 
