@@ -1,4 +1,4 @@
-(function (Ω, Player, Binary, BadTheme, BadPasser, Health) {
+(function (Ω, Player, Binary, BadTheme, BadPasser, Health, Background) {
 
     "use strict";
 
@@ -13,6 +13,8 @@
 
             this.lastBaddie = this.lastHealth = Ω.utils.now();
             this.nextHealth = Math.random() * 3000 + 300 | 0;
+
+            this.background = Background;
 
         },
 
@@ -61,6 +63,8 @@
                 );
             }
 
+            this.background.tick();
+
         },
 
         spawnBinary: function (isOne, b) {
@@ -88,6 +92,8 @@
             var c = gfx.ctx;
 
             this.clear(gfx, "hsl(195, 40%, 5%)");
+
+            this.background.render(gfx);
 
             this.player.render(gfx);
 
@@ -123,5 +129,6 @@
     window.Binary,
     window.BadTheme,
     window.BadPasser,
-    window.Health
+    window.Health,
+    window.Background
 ));
