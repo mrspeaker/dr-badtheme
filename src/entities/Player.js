@@ -16,6 +16,7 @@
         woundTime: 0,
 
         lastShot: 0,
+        shotRate: 50,
 
         init: function (x, y, screen) {
 
@@ -71,7 +72,7 @@
 
             var now = Ω.utils.now();
             if (Ω.input.isDown("fire")) {
-                if (now - this.lastShot > 20) {
+                if (now - this.lastShot > this.shotRate) {
                     this.lastShot = now;
                     this.fire();
                 }

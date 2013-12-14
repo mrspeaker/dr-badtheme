@@ -10,6 +10,7 @@
         lastBomb: 0,
 
         remove: false,
+        isOnes: false,
 
         init: function (x, y, screen) {
             this.x = x;
@@ -29,7 +30,10 @@
 
             if (now - this.lastBomb > 500) {
                 this.lastBomb = now;
-                this.screen.spawnBinary(this.x + this.w / 2, this.y + this.h - 4);
+                if (Ω.utils.oneIn(10)) {
+                    this.isOnes = !this.isOnes;
+                }
+                this.screen.spawnBinary(this.isOnes, this.x + this.w / 2, this.y + this.h - 4);
             }
 
             return (!this.remove);

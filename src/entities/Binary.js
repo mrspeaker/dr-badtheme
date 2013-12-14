@@ -32,12 +32,7 @@
             var c = gfx.ctx;
 
             c.fillStyle = this.isOne ? "#0c0" : "#f80";
-            c.fillRect(this.x, this.y, this.w, this.h);
-
-            if (!this.isOne) {
-                c.fillStyle = "#000";
-                c.fillRect(this.x + 2, this.y + 2, this.w - 4, this.h - 4);
-            }
+            c.fillText(this.isOne ? "1" : "0", this.x - 2, this.y + this.h - 2);
 
         }
     });

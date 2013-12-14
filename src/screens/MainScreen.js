@@ -40,9 +40,9 @@
 
         },
 
-        spawnBinary: function (x, y) {
+        spawnBinary: function (isOne, x, y) {
             this.binary.push(
-                new Binary(Math.random() < 0.5, x, y)
+                new Binary(isOne, x, y)
             );
         },
 
@@ -54,15 +54,21 @@
 
         render: function (gfx) {
 
+            var c = gfx.ctx;
+
             this.clear(gfx, "hsl(195, 40%, 5%)");
 
             this.player.render(gfx);
-            this.baddies.forEach(function (b) {
-                b.render(gfx);
-            });
+
+            c.font = "14pt monospace";
             this.binary.forEach(function (b) {
                 b.render(gfx);
             });
+
+            this.baddies.forEach(function (b) {
+                b.render(gfx);
+            });
+
 
         }
     });
