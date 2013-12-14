@@ -31,7 +31,7 @@
         render: function (gfx) {
             var c = gfx.ctx;
 
-            c.fillStyle = this.isOne ? "#0c0" : "#c00";
+            c.fillStyle = this.isOne ? "#0c0" : "#f80";
             c.fillRect(this.x, this.y, this.w, this.h);
 
             if (!this.isOne) {
