@@ -4,13 +4,16 @@
 
     var Pickup = Ω.Entity.extend({
 
-        w: 15,
-        h: 15,
+        w: 16,
+        h: 16,
+
+        sheet: new Ω.SpriteSheet("res/images/pickups.png", 16, 16),
 
         init: function (x, y) {
             this.x = x;
             this.y = y;
         },
+
         tick: function () {
 
             this.y ++;

@@ -28,8 +28,12 @@
 
             var c = gfx.ctx;
 
-            c.fillStyle = this.hitTime-- > 0 ? "#fff" : "#c0c";
-            c.fillRect(this.x, this.y, this.w, this.h);
+            //c.fillStyle = this.hitTime-- > 0 ? "#fff" : "#c0c";
+            //c.fillRect(this.x, this.y, this.w, this.h);
+            if (this.hitTime-- > 0) {
+                return;
+            }
+            this.sheet.render(gfx, 1, 0, this.x, this.y);
 
         }
 

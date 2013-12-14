@@ -105,12 +105,12 @@
             });
 
             c.fillStyle = "#900";
-            c.fillRect(10, 10, 110, 15);
-            c.fillRect(10, 30, 110, 15);
+            c.fillRect(10, 10, 110, 10);
+            c.fillRect(10, 25, 110, 10);
 
             c.fillStyle = "#090";
-            c.fillRect(10, 10, this.player.health / 100 * 110, 15);
-            c.fillRect(10, 30, this.player.ammo / 100 * 110, 15);
+            c.fillRect(10, 10, this.player.health / 100 * 110, 10);
+            c.fillRect(10, 25, this.player.ammo / 100 * 110, 10);
 
         }
     });

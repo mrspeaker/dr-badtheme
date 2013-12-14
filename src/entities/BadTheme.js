@@ -17,6 +17,8 @@
         health: 100,
         healthRate: 20,
 
+        sheet: new Ω.SpriteSheet("res/images/baddies.png", 40, 30),
+
         init: function (x, y, screen) {
             this.x = x;
             this.targetY = y;
@@ -97,8 +99,12 @@
 
             var c = gfx.ctx;
 
-            c.fillStyle = this.hitTime-- > 0 ? "#fff" : "#0cc";
-            c.fillRect(this.x, this.y, this.w, this.h);
+            //c.fillStyle = this.hitTime-- > 0 ? "#fff" : "#0cc";
+            //c.fillRect(this.x, this.y, this.w, this.h);
+            if (this.hitTime-- > 0) {
+                return;
+            }
+            this.sheet.render(gfx, 0, 0, this.x, this.y);
 
         }
 

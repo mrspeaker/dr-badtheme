@@ -25,6 +25,8 @@
         ammoRate: 2,
         ammoReward: 8,
 
+        sheet: new Ω.SpriteSheet("res/images/player.png", 16 * 3, 24 * 2),
+
         init: function (x, y, screen) {
 
             this.x = x;
@@ -34,6 +36,7 @@
             this.lastShot = Ω.utils.now();
 
             this.bullets = [];
+
         },
 
         tick: function () {
@@ -108,18 +111,18 @@
         },
 
         hit: function (e) {
-            if (e instanceof Binary) {
+            if (e instanceof window.Binary) {
                 if (e.isOne) {
                     this.ammo = Math.min(100, this.ammo + this.ammoReward);
-                    e.remove = true;
                 } else {
                     if (this.woundTime <= 0) {
                         this.wound();
                     }
                 }
+                e.remove = true;
             }
 
-            if (e instanceof Health) {
+            if (e instanceof window.Health) {
                 this.health = Math.min(100, this.health + e.amount);
             }
 
@@ -134,8 +137,6 @@
         },
 
         render: function (gfx) {
-            var c = gfx.ctx;
-
             this.bullets.forEach(function (b) {
                 b.render(gfx);
             });
@@ -143,8 +144,8 @@
             if (this.woundTime > 0 && Ω.utils.toggle(70, 2)) {
                 return;
             }
-            c.fillStyle = "#00c";
-            c.fillRect(this.x, this.y, this.w, this.h);
+
+            this.sheet.render(gfx, 0, 0, this.x - 16, this.y - 4);
 
         }
     });
