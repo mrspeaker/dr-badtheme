@@ -21,7 +21,7 @@
                 this.remove = true;
             }
 
-            this.spawnBinary();
+            this.spawnVote();
         },
 
         render: function (gfx) {

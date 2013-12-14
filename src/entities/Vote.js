@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var Binary = Ω.Entity.extend({
+    var Vote = Ω.Entity.extend({
 
         w: 8,
         h: 16,
@@ -11,11 +11,13 @@
 
         remove: false,
 
+        ballot: 0,
+
         sheet: new Ω.SpriteSheet("res/images/binary.png", 16, 16),
 
-        init: function (isOne, x, y, angle) {
+        init: function (ballot, x, y, angle) {
 
-            this.isOne = isOne;
+            this.ballot = ballot;
             this.x = x;
             this.y = y;
 
@@ -33,6 +35,17 @@
 
         },
 
+        flip: function () {
+            if (this.ballot === -1) {
+                return;
+            }
+            if (this.ballot === 0) {
+                this.ballot = 1;
+            } else if (this.ballot === 1) {
+                this.ballot = 0;
+            }
+        },
+
         render: function (gfx) {
             var c = gfx.ctx;
 
@@ -40,11 +53,15 @@
             //c.fillText(this.isOne ? "1" : "0", this.x - 2, this.y + this.h - 2);
             //c.fillRect(this.x, this.y, this.w, this.h);
 
-            this.sheet.render(gfx, this.isOne ? 1 : 0, 0, this.x - 2, this.y);
+            if (this.ballot === -1 && Ω.utils.toggle(200, 2)) {
+                return;
+            }
+
+            this.sheet.render(gfx, this.ballot + 1, 0, this.x - 2, this.y);
 
         }
     });
 
-    window.Binary = Binary;
+    window.Vote = Vote;
 
 }(window.Ω));

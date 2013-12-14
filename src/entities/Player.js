@@ -89,7 +89,7 @@
             }
 
             if (Ω.input.pressed("swap")) {
-                this.swapBinary();
+                this.screen.flipVote();
             }
 
         },
@@ -106,13 +106,9 @@
 
         },
 
-        swapBinary: function () {
-            this.screen.swapBinary();
-        },
-
         hit: function (e) {
-            if (e instanceof window.Binary) {
-                if (e.isOne) {
+            if (e instanceof window.Vote) {
+                if (e.ballot === 1) {
                     this.ammo = Math.min(100, this.ammo + this.ammoReward);
                 } else {
                     if (this.woundTime <= 0) {

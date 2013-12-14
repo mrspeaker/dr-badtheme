@@ -66,20 +66,26 @@
 
             this.x += Math.sin(Ω.utils.now() / this.speedPatrolX) * 0.9;
 
-            this.spawnBinary();
+            this.spawnVote();
 
         },
 
-        spawnBinary: function () {
+        spawnVote: function () {
 
-            var now = Ω.utils.now();
+            var now = Ω.utils.now(),
+                ballot;
 
             if (now - this.lastBomb > 500) {
                 this.lastBomb = now;
                 if (Ω.utils.oneIn(10)) {
                     this.isOnes = !this.isOnes;
                 }
-                this.screen.spawnBinary(this.isOnes, this);
+                ballot = this.isOnes ? 1 : 0;
+                if (Ω.utils.oneIn(20)) {
+                    ballot = -1;
+                }
+
+                this.screen.spawnVote(ballot, this);
             }
         },
 

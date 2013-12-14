@@ -1,4 +1,4 @@
-(function (Ω, Player, Binary, BadTheme, BadPasser, Health, Background) {
+(function (Ω, Player, Vote, BadTheme, BadPasser, Health, Background) {
 
     "use strict";
 
@@ -7,7 +7,7 @@
         init: function () {
 
             this.player = new Player(Ω.env.w / 2 - 10, Ω.env.h - 50, this);
-            this.binary = [];
+            this.votes = [];
             this.pickups = [];
             this.baddies = [];
 
@@ -28,7 +28,7 @@
                 return b.tick();
             });
 
-            this.binary = this.binary.filter(function (b) {
+            this.votes = this.votes.filter(function (b) {
                 return b.tick();
             });
 
@@ -36,7 +36,7 @@
                 return p.tick();
             });
 
-            Ω.Physics.checkCollision(this.player, this.binary);
+            Ω.Physics.checkCollision(this.player, this.votes);
             Ω.Physics.checkCollision(this.player, this.pickups);
             Ω.Physics.checkCollisions(this.baddies.concat(this.player.bullets));
 
@@ -67,17 +67,17 @@
 
         },
 
-        spawnBinary: function (isOne, b) {
+        spawnVote: function (ballot, b) {
             var angle = Ω.utils.angleBetween(this.player, b);
 
-            this.binary.push(
-                new Binary(isOne, b.x + b.w / 2, b.y + b.h - 4, angle)
+            this.votes.push(
+                new Vote(ballot, b.x + b.w / 2, b.y + b.h - 4, angle)
             );
         },
 
-        swapBinary: function () {
-            this.binary.forEach(function (b) {
-                b.isOne = !b.isOne;
+        flipVote: function () {
+            this.votes.forEach(function (v) {
+                v.flip();
             });
         },
 
@@ -98,7 +98,7 @@
             this.player.render(gfx);
 
             c.font = "14pt monospace";
-            this.binary.forEach(function (b) {
+            this.votes.forEach(function (b) {
                 b.render(gfx);
             });
 
@@ -126,7 +126,7 @@
 }(
     window.Ω,
     window.Player,
-    window.Binary,
+    window.Vote,
     window.BadTheme,
     window.BadPasser,
     window.Health,
