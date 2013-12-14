@@ -1,4 +1,4 @@
-(function (Ω) {
+(function (Ω, Bullet) {
 
     "use strict";
 
@@ -7,26 +7,42 @@
         w: 40,
         h: 30,
 
-        life: 450,
+        lastBomb: 0,
 
         remove: false,
 
-        init: function (x, y) {
+        init: function (x, y, screen) {
             this.x = x;
             this.y = y;
+            this.screen = screen;
+
+            this.speed = Math.random() * 300 + 200;
+
+            this.lastBomb = Ω.utils.now();
         },
 
         tick: function () {
 
-            this.x += Math.sin(Ω.utils.now() / 500) * 0.9;
+            var now = Ω.utils.now();
 
-            return (!this.remove) && this.life-- > 0;
+            this.x += Math.sin(Ω.utils.now() / this.speed) * 0.9;
+
+            if (now - this.lastBomb > 500) {
+                this.lastBomb = now;
+                this.screen.spawnBinary(this.x + this.w / 2, this.y + this.h - 4);
+            }
+
+            return (!this.remove);
 
         },
 
-        hit: function () {
+        hit: function (e) {
 
-            this.remove = true;
+            if (e instanceof Bullet) {
+
+                this.remove = true;
+
+            }
 
         },
 
@@ -44,5 +60,6 @@
     window.BadTheme = BadTheme;
 
 }(
-    window.Ω
+    window.Ω,
+    window.Bullet
 ));

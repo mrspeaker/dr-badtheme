@@ -10,7 +10,6 @@
             this.binary = [];
             this.baddies = [];
 
-            this.lastBomb = Ω.utils.now();
             this.lastBaddie = Ω.utils.now();
 
         },
@@ -32,20 +31,19 @@
             Ω.Physics.checkCollision(this.player, this.binary);
             Ω.Physics.checkCollisions(this.baddies.concat(this.player.bullets));
 
-            if (now - this.lastBomb > 100) {
-                this.lastBomb = now;
-                this.binary.push(
-                    new Binary(Math.random() < 0.5, Math.random() * Ω.env.w, -20)
-                );
-            }
-
             if (now - this.lastBaddie > 2000) {
                 this.lastBaddie = now;
                 this.baddies.push(
-                    new BadTheme(Math.random() * Ω.env.w / 2 + 100, Math.random() * 100 | 0)
+                    new BadTheme(Math.random() * Ω.env.w / 2 + 100, Math.random() * 100 | 0, this)
                 );
             }
 
+        },
+
+        spawnBinary: function (x, y) {
+            this.binary.push(
+                new Binary(Math.random() < 0.5, x, y)
+            );
         },
 
         swapBinary: function () {
