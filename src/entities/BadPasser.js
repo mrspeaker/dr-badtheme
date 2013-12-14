@@ -2,7 +2,7 @@
 
     "use strict";
 
-    var BadTheme = Ω.Entity.extend({
+    var BadPasser = Ω.Entity.extend({
 
         w: 40,
         h: 30,
@@ -19,11 +19,10 @@
 
         init: function (x, y, screen) {
             this.x = x;
-            this.targetY = y;
             this.y = y - 150;
             this.screen = screen;
 
-            this.speedDescend = 2;
+            this.speedDescend = 1;
             this.speedPatrolX = Math.random() * 300 + 200;
 
             this.lastBomb = Ω.utils.now();
@@ -39,10 +38,7 @@
                 this.state.set("INTRO");
                 break;
             case "INTRO":
-                this.y += this.speedDescend;
-                if (this.y >= this.targetY) {
-                    this.state.set("PATROL");
-                }
+                this.state.set("PATROL");
                 break;
             case "PATROL":
                 this.state_PATROL();
@@ -60,7 +56,11 @@
 
             var now = Ω.utils.now();
 
-            this.x += Math.sin(now / this.speedPatrolX) * 0.9;
+            //this.x += Math.sin(now / this.speedPatrolX) * 0.9;
+            this.y += this.speedDescend;
+            if (this.y > Ω.env.h) {
+                this.remove = true;
+            }
 
             if (now - this.lastBomb > 500) {
                 this.lastBomb = now;
@@ -87,14 +87,14 @@
 
             var c = gfx.ctx;
 
-            c.fillStyle = "#0cc";
+            c.fillStyle = "#cc0";
             c.fillRect(this.x, this.y, this.w, this.h);
 
         }
 
     });
 
-    window.BadTheme = BadTheme;
+    window.BadPasser = BadPasser;
 
 }(
     window.Ω,

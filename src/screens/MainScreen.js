@@ -1,4 +1,4 @@
-(function (Ω, Player, Binary, BadTheme) {
+(function (Ω, Player, Binary, BadTheme, BadPasser) {
 
     "use strict";
 
@@ -33,8 +33,9 @@
 
             if (now - this.lastBaddie > 2000 && this.baddies.length < 6) {
                 this.lastBaddie = now;
+                var Clazz = Math.random() < 0.3 ? BadPasser : BadTheme;
                 this.baddies.push(
-                    new BadTheme(
+                    new Clazz(
                         (Math.random() * Ω.env.w / 2 + 100) | 0,
                         Ω.utils.rand(150, 10),
                         this
@@ -98,5 +99,6 @@
     window.Ω,
     window.Player,
     window.Binary,
-    window.BadTheme
+    window.BadTheme,
+    window.BadPasser
 ));

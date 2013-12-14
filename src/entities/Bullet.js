@@ -20,7 +20,7 @@
 
             this.y -= this.speed;
 
-            return this.y > 0;
+            return !this.remove && this.y > 0;
 
         },
 
@@ -31,6 +31,10 @@
             c.fillStyle = "#cc0";
             c.fillRect(this.x, this.y, this.w, this.h);
 
+        },
+
+        hit: function () {
+            this.remove = true;
         }
 
     });
