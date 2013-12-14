@@ -1,0 +1,12 @@
+body {
+    background-color: hsl(195, 40%, 1%);
+}
+
+section {
+    background-color: hsl(140, 70%, 10%);
+    text-align: center;
+}
+
+#board {
+    background-color: red;
+}
