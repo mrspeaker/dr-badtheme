@@ -31,7 +31,7 @@
             Ω.Physics.checkCollision(this.player, this.binary);
             Ω.Physics.checkCollisions(this.baddies.concat(this.player.bullets));
 
-            if (now - this.lastBaddie > 2000) {
+            if (now - this.lastBaddie > 2000 && this.baddies.length < 6) {
                 this.lastBaddie = now;
                 this.baddies.push(
                     new BadTheme(Math.random() * Ω.env.w / 2 + 100, Math.random() * 100 | 0, this)
@@ -52,6 +52,13 @@
             });
         },
 
+        playerDead: function () {
+
+            alert("game over.");
+            window.game.reset();
+
+        },
+
         render: function (gfx) {
 
             var c = gfx.ctx;
@@ -69,6 +76,13 @@
                 b.render(gfx);
             });
 
+            c.fillStyle = "#900";
+            c.fillRect(10, 10, 110, 15);
+            c.fillRect(10, 30, 110, 15);
+
+            c.fillStyle = "#090";
+            c.fillRect(10, 10, this.player.health / 100 * 110, 15);
+            c.fillRect(10, 30, this.player.ammo / 100 * 110, 15);
 
         }
     });

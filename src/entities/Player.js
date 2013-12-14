@@ -18,6 +18,13 @@
         lastShot: 0,
         shotRate: 50,
 
+        health: 100,
+        healthRate: 20,
+
+        ammo: 100,
+        ammoRate: 2,
+        ammoReward: 8,
+
         init: function (x, y, screen) {
 
             this.x = x;
@@ -85,9 +92,15 @@
         },
 
         fire: function () {
-            this.bullets.push(
-                new Bullet(this.x + 7, this.y - 2)
-            );
+
+            if (this.ammo > 0) {
+                this.bullets.push(
+                    new Bullet(this.x + 7, this.y - 2)
+                );
+                this.ammo -= this.ammoRate;
+            }
+
+
         },
 
         swapBinary: function () {
@@ -96,6 +109,7 @@
 
         hit: function (b) {
             if (b.isOne) {
+                this.ammo = Math.min(100, this.ammo + this.ammoReward);
                 b.remove = true;
             } else {
                 if (this.woundTime <= 0) {
@@ -105,6 +119,10 @@
         },
 
         wound: function () {
+            this.health = Math.max(-1, this.health - this.healthRate);
+            if (this.health < 0) {
+                this.screen.playerDead();
+            }
             this.woundTime = 30;
         },
 

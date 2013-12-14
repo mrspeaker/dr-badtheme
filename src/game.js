@@ -1,4 +1,4 @@
-(function (Ω, MainScreen) {
+(function (Ω, TitleScreen) {
 
     "use strict";
 
@@ -26,9 +26,13 @@
 
         },
 
+        reset: function () {
+            this.setScreen(new TitleScreen());
+        },
+
         load: function () {
 
-            this.setScreen(new MainScreen());
+            this.reset();
 
         }
 
@@ -38,5 +42,5 @@
 
 }(
     window.Ω,
-    window.MainScreen
+    window.TitleScreen
 ));
