@@ -1,4 +1,4 @@
-(function (Ω, Player) {
+(function (Ω, Player, Binary) {
 
     "use strict";
 
@@ -7,6 +7,8 @@
         init: function () {
 
             this.player = new Player(Ω.env.w / 2 - 10, Ω.env.h - 50);
+            this.binary = [];
+            this.lastBomb = Ω.utils.now();
 
         },
 
@@ -14,15 +16,28 @@
 
             this.player.tick();
 
+            this.binary = this.binary.filter(function (b) {
+                return b.tick();
+            });
+
+
+            if (Ω.utils.now() - this.lastBomb > 100) {
+                this.lastBomb = Ω.utils.now();
+                this.binary.push(
+                    new Binary(Math.random() < 0.5, Math.random() * Ω.env.w, -20)
+                );
+            }
+
         },
 
         render: function (gfx) {
 
-            var c = gfx.ctx;
-
             this.clear(gfx, "hsl(195, 40%, 5%)");
 
             this.player.render(gfx);
+            this.binary.forEach(function (b) {
+                b.render(gfx);
+            });
 
         }
     });
@@ -31,5 +46,6 @@
 
 }(
     window.Ω,
-    window.Player
+    window.Player,
+    window.Binary
 ));
