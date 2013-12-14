@@ -1,13 +1,17 @@
 body {
-    background-color: hsl(195, 40%, 1%);
-    margin: 0;
+    background-color: rgb(95, 79, 66);
+    text-align: center;
+    margin: 0 auto;
 }
 
 section {
-    background-color: hsl(140, 70%, 10%);
+    background-color: rgb(145, 116, 91);
     text-align: center;
+    margin: 0 auto;
+    width: 800px;
     padding: 5px;
     margin-top: 50px;
+    border-top: 1px solid rgb(250, 213, 154);
 }
 
 #board {

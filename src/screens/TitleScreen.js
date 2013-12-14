@@ -4,7 +4,9 @@
 
     var TitleScreen = Ω.Screen.extend({
 
-        count: 15,
+        count: 100,
+
+        img: new Ω.Image("res/images/title.png"),
 
         init: function () {
 
@@ -21,8 +23,10 @@
 
             var c = gfx.ctx;
 
-            c.fillStyle = "#333";
+            c.fillStyle = "#111";
             c.fillRect(0, 0, gfx.w, gfx.h);
+
+            this.img.render(gfx, gfx.w / 2 - 145, gfx.h * 0.3);
 
         }
 
