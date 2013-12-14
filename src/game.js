@@ -1,4 +1,4 @@
-(function (Ω, TitleScreen) {
+(function (Ω, TitleScreen, GameOverScreen) {
 
     "use strict";
 
@@ -34,6 +34,10 @@
 
             this.reset();
 
+        },
+
+        gameOver: function () {
+            this.setScreen(new GameOverScreen());
         }
 
     });
@@ -42,5 +46,6 @@
 
 }(
     window.Ω,
-    window.TitleScreen
+    window.TitleScreen,
+    window.GameOverScreen
 ));

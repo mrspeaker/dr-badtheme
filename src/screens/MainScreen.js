@@ -34,7 +34,7 @@
             if (now - this.lastBaddie > 2000 && this.baddies.length < 6) {
                 this.lastBaddie = now;
                 this.baddies.push(
-                    new BadTheme(Math.random() * Ω.env.w / 2 + 100, Math.random() * 100 | 0, this)
+                    new BadTheme(Math.random() * Ω.env.w / 2 + 100, Math.random() * 100 | 0, this, this.player)
                 );
             }
 
@@ -54,8 +54,7 @@
 
         playerDead: function () {
 
-            alert("game over.");
-            window.game.reset();
+            window.game.gameOver();
 
         },
 
