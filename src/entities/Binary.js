@@ -10,6 +10,8 @@
         xspeed: 0,
         yspeed: 2,
 
+        remove: false,
+
         init: function (isOne, x, y) {
 
             this.isOne = isOne;
@@ -22,7 +24,7 @@
             this.x += this.xspeed;
             this.y += this.yspeed;
 
-            return this.y < Ω.env.h;
+            return !(this.remove) && this.y < Ω.env.h;
 
         },
 

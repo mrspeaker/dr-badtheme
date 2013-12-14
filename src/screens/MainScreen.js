@@ -20,6 +20,7 @@
                 return b.tick();
             });
 
+            Ω.Physics.checkCollision(this.player, this.binary);
 
             if (Ω.utils.now() - this.lastBomb > 100) {
                 this.lastBomb = Ω.utils.now();

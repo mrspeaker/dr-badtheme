@@ -13,6 +13,8 @@
         ac: 0.5,
         drag: 0.9,
 
+        woundTime: 0,
+
         init: function (x, y) {
 
             this.x = x;
@@ -21,6 +23,12 @@
 
         tick: function () {
 
+            this.handleInput();
+            this.woundTime--;
+
+        },
+
+        handleInput: function () {
             var xo = 0,
                 yo = 0;
 
@@ -49,6 +57,31 @@
 
             this.x += this.vx;
             this.y += this.vy;
+        },
+
+        hit: function (b) {
+            if (b.isOne) {
+                b.remove = true;
+            } else {
+                if (this.woundTime <= 0) {
+                    this.wound();
+                }
+            }
+        },
+
+        wound: function () {
+            this.woundTime = 30;
+        },
+
+        render: function (gfx) {
+            var c = gfx.ctx;
+
+            if (this.woundTime > 0 && Ω.utils.toggle(70, 2)) {
+                return;
+            }
+            c.fillStyle = "#00c";
+            c.fillRect(this.x, this.y, this.w, this.h);
+
         }
     });
 
