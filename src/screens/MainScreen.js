@@ -1,4 +1,4 @@
-(function (Ω, Player, Binary, BadTheme, BadPasser) {
+(function (Ω, Player, Binary, BadTheme, BadPasser, Health) {
 
     "use strict";
 
@@ -8,9 +8,11 @@
 
             this.player = new Player(Ω.env.w / 2 - 10, Ω.env.h - 50, this);
             this.binary = [];
+            this.pickups = [];
             this.baddies = [];
 
-            this.lastBaddie = Ω.utils.now();
+            this.lastBaddie = this.lastHealth = Ω.utils.now();
+            this.nextHealth = Math.random() * 3000 + 300 | 0;
 
         },
 
@@ -28,7 +30,12 @@
                 return b.tick();
             });
 
+            this.pickups = this.pickups.filter(function (p) {
+                return p.tick();
+            });
+
             Ω.Physics.checkCollision(this.player, this.binary);
+            Ω.Physics.checkCollision(this.player, this.pickups);
             Ω.Physics.checkCollisions(this.baddies.concat(this.player.bullets));
 
             if (now - this.lastBaddie > 2000 && this.baddies.length < 6) {
@@ -39,6 +46,17 @@
                         (Math.random() * Ω.env.w / 2 + 100) | 0,
                         Ω.utils.rand(150, 10),
                         this
+                    )
+                );
+            }
+
+            if (now - this.lastHealth > this.nextHealth) {
+                this.lastHealth = now;
+                this.nextHealth = Math.random() * 3000 + 300 | 0;
+                this.pickups.push(
+                    new Health(
+                        (Math.random() * Ω.env.w / 2 + 100) | 0,
+                        -30
                     )
                 );
             }
@@ -78,6 +96,10 @@
                 b.render(gfx);
             });
 
+            this.pickups.forEach(function (p) {
+                p.render(gfx);
+            });
+
             this.baddies.forEach(function (b) {
                 b.render(gfx);
             });
@@ -100,5 +122,6 @@
     window.Player,
     window.Binary,
     window.BadTheme,
-    window.BadPasser
+    window.BadPasser,
+    window.Health
 ));

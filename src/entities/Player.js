@@ -107,15 +107,22 @@
             this.screen.swapBinary();
         },
 
-        hit: function (b) {
-            if (b.isOne) {
-                this.ammo = Math.min(100, this.ammo + this.ammoReward);
-                b.remove = true;
-            } else {
-                if (this.woundTime <= 0) {
-                    this.wound();
+        hit: function (e) {
+            if (e instanceof Binary) {
+                if (e.isOne) {
+                    this.ammo = Math.min(100, this.ammo + this.ammoReward);
+                    e.remove = true;
+                } else {
+                    if (this.woundTime <= 0) {
+                        this.wound();
+                    }
                 }
             }
+
+            if (e instanceof Health) {
+                this.health = Math.min(100, this.health + e.amount);
+            }
+
         },
 
         wound: function () {
