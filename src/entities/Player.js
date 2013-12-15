@@ -18,8 +18,8 @@
         lastShot: 0,
         shotRate: 50,
 
-        health: 100,
-        healthRate: 20,
+        health: 50,
+        healthRate: 10,
 
         ammo: 100,
         ammoRate: 2,

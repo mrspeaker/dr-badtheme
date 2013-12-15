@@ -18,8 +18,8 @@
         init: function (ballot, x, y, angle) {
 
             this.ballot = ballot;
-            this.x = x;
-            this.y = y;
+            this.x = x - this.w / 2;
+            this.y = y - this.h / 2;
 
             this.xspeed = this.speed * Math.cos(angle);
             this.yspeed = this.speed * Math.sin(angle);

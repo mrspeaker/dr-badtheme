@@ -14,7 +14,7 @@
             this.lastBaddie = this.lastHealth = Ω.utils.now();
             this.nextHealth = Math.random() * 3000 + 300 | 0;
 
-            this.background = Background;
+            this.background = Background.init();
 
         },
 
@@ -97,7 +97,6 @@
 
             this.player.render(gfx);
 
-            c.font = "14pt monospace";
             this.votes.forEach(function (b) {
                 b.render(gfx);
             });
@@ -110,13 +109,40 @@
                 b.render(gfx);
             });
 
+            c.font = "8pt monospace";
+            c.fillStyle = "#fff";
+            c.fillText("BAD", 18, 19);
+            c.fillText("GOOD", 160, 19);
+            c.fillText("AMMO", 10, 32);
+
+            c.fillText("SCORE", 290, 19);
+            c.fillText("HI", gfx.w - 40, 19);
+
+            // Votes bar - back
+            c.fillStyle = "#e4dd25";
+            c.fillRect(45, 10, 110, 10);
+
+            // Ammo bar - back
             c.fillStyle = "#900";
-            c.fillRect(10, 10, 110, 10);
-            c.fillRect(10, 25, 110, 10);
+            c.fillRect(45, 25, 110, 10);
+
+            var barlen;
+            if (this.player.health < 50) {
+                barlen = (1 - this.player.health / 50) * 55;
+                c.fillRect(45 + (55 - barlen), 10, barlen, 10);
+            }
 
             c.fillStyle = "#090";
-            c.fillRect(10, 10, this.player.health / 100 * 110, 10);
-            c.fillRect(10, 25, this.player.ammo / 100 * 110, 10);
+            if (this.player.health >= 50) {
+                barlen = ((this.player.health - 50) / 50) * 55;
+                c.fillRect(45 + 55, 10, barlen, 10);
+            }
+            c.fillRect(45, 25, this.player.ammo / 100 * 110, 10);
+
+            c.fillStyle = "#000";
+            c.fillRect(45 + 55, 10, 2, 10);
+
+
 
         }
     });

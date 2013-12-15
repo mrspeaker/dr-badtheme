@@ -26,14 +26,19 @@
 
         render: function (gfx) {
 
-            var c = gfx.ctx;
+            var c = gfx.ctx,
+                doFlash = false;
 
             //c.fillStyle = this.hitTime-- > 0 ? "#fff" : "#c0c";
             //c.fillRect(this.x, this.y, this.w, this.h);
             if (this.hitTime-- > 0) {
-                return;
+                c.globalAlpha = 0.4;
+                doFlash = true;
             }
             this.sheet.render(gfx, 1, 0, this.x, this.y);
+            if (doFlash) {
+                c.globalAlpha = 1;
+            }
 
         }
 
