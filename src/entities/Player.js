@@ -23,7 +23,7 @@
 
         ammo: 100,
         ammoRate: 2,
-        ammoReward: 8,
+        ammoReward: 15,
 
         sheet: new Ω.SpriteSheet("res/images/player.png", 16 * 3, 24 * 2),
 

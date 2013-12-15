@@ -7,22 +7,20 @@
         w: 8,
         h: 16,
 
-        speed: 2,
-
         remove: false,
 
         ballot: 0,
 
         sheet: new Ω.SpriteSheet("res/images/binary.png", 16, 16),
 
-        init: function (ballot, x, y, angle) {
+        init: function (ballot, speed, x, y, angle) {
 
             this.ballot = ballot;
             this.x = x - this.w / 2;
             this.y = y - this.h / 2;
 
-            this.xspeed = this.speed * Math.cos(angle);
-            this.yspeed = this.speed * Math.sin(angle);
+            this.xspeed = speed * Math.cos(angle);
+            this.yspeed = speed * Math.sin(angle);
 
         },
 

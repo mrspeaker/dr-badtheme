@@ -1,4 +1,4 @@
-(function (Ω, Player, Vote, BadTheme, BadPasser, Health, Background) {
+(function (Ω, Player, Vote, BadTheme, BadPasser, Health, Background, Conductor) {
 
     "use strict";
 
@@ -15,12 +15,11 @@
             this.nextHealth = Math.random() * 3000 + 300 | 0;
 
             this.background = Background.init();
+            this.conductor = new Conductor().init(this);
 
         },
 
         tick: function () {
-
-            var now = Ω.utils.now();
 
             this.player.tick();
 
@@ -40,19 +39,9 @@
             Ω.Physics.checkCollision(this.player, this.pickups);
             Ω.Physics.checkCollisions(this.baddies.concat(this.player.bullets));
 
-            if (now - this.lastBaddie > 2000 && this.baddies.length < 6) {
-                this.lastBaddie = now;
-                var Clazz = Math.random() < 0.3 ? BadPasser : BadTheme;
-                this.baddies.push(
-                    new Clazz(
-                        (Math.random() * Ω.env.w / 2 + 100) | 0,
-                        Ω.utils.rand(150, 10),
-                        this
-                    )
-                );
-            }
+            this.conductor.tick();
 
-            if (now - this.lastHealth > this.nextHealth) {
+            /*if (now - this.lastHealth > this.nextHealth) {
                 this.lastHealth = now;
                 this.nextHealth = Math.random() * 3000 + 300 | 0;
                 this.pickups.push(
@@ -61,17 +50,17 @@
                         -30
                     )
                 );
-            }
+            }*/
 
             this.background.tick();
 
         },
 
-        spawnVote: function (ballot, b) {
+        spawnVote: function (ballot, speed, b) {
             var angle = Ω.utils.angleBetween(this.player, b);
 
             this.votes.push(
-                new Vote(ballot, b.x + b.w / 2, b.y + b.h - 4, angle)
+                new Vote(ballot, speed, b.x + b.w / 2, b.y + b.h - 4, angle)
             );
         },
 
@@ -156,5 +145,6 @@
     window.BadTheme,
     window.BadPasser,
     window.Health,
-    window.Background
+    window.Background,
+    window.Conductor
 ));

@@ -7,7 +7,7 @@
         init: function (x, y, screen) {
             this._super(x, y, screen);
             this.y = y - 150;
-            this.speedDescend = 1;
+            this.speedDescend = (Math.random() * 3 | 0) + 1;
         },
 
         state_INTRO: function () {
@@ -21,7 +21,7 @@
                 this.remove = true;
             }
 
-            this.spawnVote();
+            this.spawnVote(2 + (this.speedDescend * 0.5));
         },
 
         render: function (gfx) {
@@ -29,8 +29,6 @@
             var c = gfx.ctx,
                 doFlash = false;
 
-            //c.fillStyle = this.hitTime-- > 0 ? "#fff" : "#c0c";
-            //c.fillRect(this.x, this.y, this.w, this.h);
             if (this.hitTime-- > 0) {
                 c.globalAlpha = 0.4;
                 doFlash = true;

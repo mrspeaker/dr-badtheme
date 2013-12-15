@@ -66,11 +66,11 @@
 
             this.x += Math.sin(Ω.utils.now() / this.speedPatrolX) * 0.9;
 
-            this.spawnVote();
+            this.spawnVote(2 + (this.speedDescend * 0.5));
 
         },
 
-        spawnVote: function () {
+        spawnVote: function (speed) {
 
             var now = Ω.utils.now(),
                 ballot;
@@ -85,7 +85,7 @@
                     ballot = -1;
                 }
 
-                this.screen.spawnVote(ballot, this);
+                this.screen.spawnVote(ballot, speed, this);
             }
         },
 
@@ -106,8 +106,6 @@
             var c = gfx.ctx,
                 doFlash = false;
 
-            //c.fillStyle = this.hitTime-- > 0 ? "#fff" : "#0cc";
-            //c.fillRect(this.x, this.y, this.w, this.h);
             if (this.hitTime-- > 0) {
                 c.globalAlpha = 0.4;
                 doFlash = true;
