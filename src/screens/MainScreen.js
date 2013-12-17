@@ -17,6 +17,8 @@
             this.background = Background.init();
             this.conductor = new Conductor().init(this);
 
+            this.foreFx = [];
+
         },
 
         tick: function () {
@@ -52,7 +54,12 @@
                 );
             }*/
 
+
             this.background.tick();
+            this.foreFx = this.foreFx.filter(function (f) {
+                return f.tick();
+            });
+
 
         },
 
@@ -131,7 +138,9 @@
             c.fillStyle = "#000";
             c.fillRect(45 + 55, 10, 2, 10);
 
-
+            this.foreFx.forEach(function (f) {
+                f.render(gfx);
+            });
 
         }
     });

@@ -1,4 +1,4 @@
-(function (Ω, MainScreen) {
+(function (Ω, NextScreen) {
 
     "use strict";
 
@@ -15,7 +15,7 @@
         },
         tick: function () {
             if (this.count-- < 0) {
-                window.game.setScreen(new MainScreen());
+                window.game.setScreen(new NextScreen());
             }
         },
 
@@ -36,5 +36,5 @@
 
 }(
     window.Ω,
-    window.MainScreen
+    window.IntroScreen
 ));

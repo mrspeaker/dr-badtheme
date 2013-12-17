@@ -50,6 +50,10 @@
 
         },
 
+        state_INTRO: function () {
+
+        },
+
         state_WAVETIMED: function () {
             if (this.now - this.lastBaddie > 3000 && this.screen.baddies.length < 6) {
                this.lastBaddie = this.now;
