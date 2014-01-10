@@ -17,12 +17,13 @@
 
         lastShot: 0,
         shotRate: 50,
+        fireFlash: 0,
 
         health: 50,
         healthRate: 10,
 
         ammo: 100,
-        ammoRate: 2,
+        ammoRate: 1,
         ammoReward: 15,
 
         sheet: new Ω.SpriteSheet("res/images/player.png", 16 * 3, 24 * 2),
@@ -98,9 +99,19 @@
 
             if (this.ammo > 0) {
                 this.bullets.push(
-                    new Bullet(this.x + 7, this.y - 2)
+                    new Bullet(this.x - 4, this.y - 2, -1),
+                    new Bullet(this.x + 3, this.y - 2, 0),
+                    new Bullet(this.x + 11, this.y - 2, 1)
                 );
                 this.ammo -= this.ammoRate;
+                if (this.fireFlash < 0) {
+
+                    this.fireFlash = 2;
+                    this.y += 3; // Kick back
+                    //this.screen.backFx.push(
+                     //   new Ω.Shake(2, 4, 4)
+                    //);
+                }
             }
 
 
@@ -130,9 +141,18 @@
                 this.screen.playerDead();
             }
             this.woundTime = 30;
+            this.screen.backFx.push(
+                new Ω.Shake(20, 20, 20)
+            );
         },
 
         render: function (gfx) {
+            var c = gfx.ctx;
+            if (this.fireFlash-- > 0) {
+                c.fillStyle = "#fff";
+                c.fillRect(this.x - 2, this.y - 10, 20, 20);
+            }
+
             this.bullets.forEach(function (b) {
                 b.render(gfx);
             });

@@ -4,21 +4,24 @@
 
     var Bullet = Ω.Entity.extend({
 
-        w: 4,
-        h: 7,
+        w: 7,
+        h: 8,
 
         speed: 10,
 
-        init: function (x, y) {
+        init: function (x, y, xDir) {
 
-            this.x = x;
-            this.y = y;
+            this.x = x + (Math.random() * 7 | 0);
+            this.y = y + (Math.random() * 7 | 0);
+
+            this.xDir = xDir;
 
         },
 
         tick: function () {
 
             this.y -= this.speed;
+            this.x += this.xDir * 0.3;
 
             return !this.remove && this.y > 0;
 
@@ -28,7 +31,7 @@
 
             var c = gfx.ctx;
 
-            c.fillStyle = "#cc0";
+            c.fillStyle = "#889";
             c.fillRect(this.x, this.y, this.w, this.h);
 
         },

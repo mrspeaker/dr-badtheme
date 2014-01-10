@@ -2,6 +2,12 @@
 
     "use strict";
 
+    function Lerp(start, end, step) {
+        return function (dt) {
+            return step();
+        }
+    }
+
     var BadPasser = BadTheme.extend({
 
         init: function (x, y, screen) {
@@ -16,20 +22,27 @@
 
         state_PATROL: function () {
 
-            this.y += this.speedDescend;
-            if (this.y > Ω.env.h) {
-                this.remove = true;
+            if (this.hitTime <= 0) {
+                this.y += this.speedDescend;
+                if (this.y > Ω.env.h) {
+                    this.remove = true;
+                }
+
+                this.spawnVote(2 + (this.speedDescend * 0.5));
+            } else {
+                this.y -= this.hitTime * this.speedDescend;
             }
 
-            this.spawnVote(2 + (this.speedDescend * 0.5));
+
         },
 
         render: function (gfx) {
 
             var c = gfx.ctx,
-                doFlash = false;
+                doFlash = false,
+                dead = this.state.is("DEAD");
 
-            if (this.hitTime-- > 0) {
+            if (dead || this.hitTime-- > 0) {
                 c.globalAlpha = 0.4;
                 doFlash = true;
             }

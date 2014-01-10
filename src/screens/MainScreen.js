@@ -19,6 +19,8 @@
 
             this.foreFx = [];
 
+            this.backFx = [];
+
         },
 
         tick: function () {
@@ -39,7 +41,7 @@
 
             Ω.Physics.checkCollision(this.player, this.votes);
             Ω.Physics.checkCollision(this.player, this.pickups);
-            Ω.Physics.checkCollisions(this.baddies.concat(this.player.bullets));
+            Ω.Physics.checkGroupCollision(this.baddies.filter(function(b) { return b.state.isNot("DEAD"); }), this.player.bullets);
 
             this.conductor.tick();
 
@@ -54,8 +56,10 @@
                 );
             }*/
 
-
             this.background.tick();
+            this.backFx = this.backFx.filter(function (f) {
+                return f.tick();
+            });
             this.foreFx = this.foreFx.filter(function (f) {
                 return f.tick();
             });
@@ -87,7 +91,17 @@
 
             var c = gfx.ctx;
 
+            c.save();
+
+
+            this.backFx.forEach(function (f) {
+                f.render(gfx);
+            });
+
+
             this.clear(gfx, "hsl(195, 40%, 5%)");
+
+
 
             this.background.render(gfx);
 
@@ -141,6 +155,8 @@
             this.foreFx.forEach(function (f) {
                 f.render(gfx);
             });
+
+            c.restore();
 
         }
     });

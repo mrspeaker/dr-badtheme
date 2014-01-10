@@ -8,6 +8,9 @@
         h: 30,
 
         lastBomb: 0,
+        hitTime: 0,
+
+        dead: false,
 
         remove: false,
         isOnes: false,
@@ -47,10 +50,27 @@
                 this.state_PATROL();
                 break;
             case "DYING":
+                if (this.state.first()) {
+                    this.speedDescend = 1;
+                    this.screen.backFx.push(
+                        new Ω.Shake(30, 10, 10)
+                    );
+                }
+                if (this.state.count == 4) {
+                    this.state.set("DEAD");
+                }
+
                 break;
             case "DEAD":
+                this.state_DEAD();
                 break;
             }
+
+
+            if (this.y > Ω.env.h) {
+                this.remove = true;
+            }
+
             return (!this.remove);
 
         },
@@ -66,8 +86,16 @@
 
             this.x += Math.sin(Ω.utils.now() / this.speedPatrolX) * 0.9;
 
+            if (this.hitTime > 0) {
+                this.y -= this.hitTime * 2;
+            }
+
             this.spawnVote(2 + (this.speedDescend * 0.5));
 
+        },
+
+        state_DEAD: function () {
+            this.y += this.speedDescend;
         },
 
         spawnVote: function (speed) {
@@ -95,7 +123,9 @@
                 this.hitTime = 5;
                 this.health = Math.max(-1, this.health - this.healthRate);
                 if (this.health < 0) {
-                    this.remove = true;
+                    if (this.state.isNotIn("DYING", "DEAD")) {
+                        this.state.set("DYING");
+                    }
                 }
             }
 
@@ -104,15 +134,22 @@
         render: function (gfx) {
 
             var c = gfx.ctx,
-                doFlash = false;
+                doFlash = false,
+                dying = this.state.is("DYING"),
+                dead = this.state.is("DEAD");
 
-            if (this.hitTime-- > 0) {
+            if (dead || this.hitTime-- > 0) {
                 c.globalAlpha = 0.4;
                 doFlash = true;
             }
             this.sheet.render(gfx, 0, 0, this.x, this.y);
             if (doFlash) {
                 c.globalAlpha = 1;
+            }
+
+            if (dying) {
+                c.fillStyle = "#fff";
+                c.fillRect(this.x - 10, this.y - 10, this.w + 20, this.h + 20);
             }
 
         }
