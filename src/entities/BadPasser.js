@@ -30,7 +30,7 @@
 
                 this.spawnVote(2 + (this.speedDescend * 0.5));
             } else {
-                this.y -= this.hitTime * this.speedDescend;
+                this.y -= this.hitTime;
             }
 
 
@@ -43,7 +43,7 @@
                 dead = this.state.is("DEAD");
 
             if (dead || this.hitTime-- > 0) {
-                c.globalAlpha = 0.4;
+                c.globalAlpha = dead ? 0.1 : 0.4;
                 doFlash = true;
             }
             this.sheet.render(gfx, 1, 0, this.x, this.y);

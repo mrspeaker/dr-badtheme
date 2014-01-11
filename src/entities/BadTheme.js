@@ -24,7 +24,7 @@
 
         init: function (x, y, screen) {
             this.x = x;
-            this.targetY = y;
+            this.targetY = Math.max(y, 0);
             this.y = y - 150;
             this.screen = screen;
 
@@ -80,6 +80,10 @@
             if (this.y >= this.targetY) {
                 this.state.set("PATROL");
             }
+
+             if (this.hitTime > 0) {
+                this.y -= this.hitTime * 2;
+            }
         },
 
         state_PATROL: function () {
@@ -88,6 +92,7 @@
 
             if (this.hitTime > 0) {
                 this.y -= this.hitTime * 2;
+                this.state.set("INTRO");
             }
 
             this.spawnVote(2 + (this.speedDescend * 0.5));
@@ -127,6 +132,7 @@
                         this.state.set("DYING");
                     }
                 }
+                this.screen.addPuff(e.x, e.y);
             }
 
         },
@@ -139,7 +145,7 @@
                 dead = this.state.is("DEAD");
 
             if (dead || this.hitTime-- > 0) {
-                c.globalAlpha = 0.4;
+                c.globalAlpha = dead ? 0.1 : 0.4;
                 doFlash = true;
             }
             this.sheet.render(gfx, 0, 0, this.x, this.y);

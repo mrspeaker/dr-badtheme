@@ -10,8 +10,6 @@
             this.sheet.render(gfx, 0, 0, this.x, this.y);
         }
 
-
-
     });
 
     window.Health = Health;

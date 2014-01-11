@@ -1,4 +1,4 @@
-(function (Ω, Player, Vote, BadTheme, BadPasser, Health, Background, Conductor) {
+(function (Ω, Player, Vote, BadTheme, BadPasser, Health, Background, Conductor, Explosion) {
 
     "use strict";
 
@@ -12,14 +12,16 @@
             this.baddies = [];
 
             this.lastBaddie = this.lastHealth = Ω.utils.now();
-            this.nextHealth = Math.random() * 3000 + 300 | 0;
+            this.nextHealth = Math.random() * 8000 + 300 | 0;
 
             this.background = Background.init();
             this.conductor = new Conductor().init(this);
 
             this.foreFx = [];
 
-            this.backFx = [];
+            this.backFx = [
+                new window.Nebula()
+            ];
 
         },
 
@@ -45,16 +47,17 @@
 
             this.conductor.tick();
 
-            /*if (now - this.lastHealth > this.nextHealth) {
+            var now = Ω.utils.now();
+            if (now - this.lastHealth > this.nextHealth) {
                 this.lastHealth = now;
-                this.nextHealth = Math.random() * 3000 + 300 | 0;
+                this.nextHealth = Math.random() * 8000 + 300 | 0;
                 this.pickups.push(
                     new Health(
                         (Math.random() * Ω.env.w / 2 + 100) | 0,
                         -30
                     )
                 );
-            }*/
+            }
 
             this.background.tick();
             this.backFx = this.backFx.filter(function (f) {
@@ -64,6 +67,14 @@
                 return f.tick();
             });
 
+
+        },
+
+        addPuff: function (x, y) {
+
+            this.backFx.push(
+                new Explosion(x, y)
+            );
 
         },
 
@@ -93,17 +104,15 @@
 
             c.save();
 
+            this.clear(gfx, "hsl(195, 40%, 5%)");
+
 
             this.backFx.forEach(function (f) {
                 f.render(gfx);
             });
 
-
-            this.clear(gfx, "hsl(195, 40%, 5%)");
-
-
-
             this.background.render(gfx);
+
 
             this.player.render(gfx);
 
@@ -171,5 +180,6 @@
     window.BadPasser,
     window.Health,
     window.Background,
-    window.Conductor
+    window.Conductor,
+    window.Explosion
 ));

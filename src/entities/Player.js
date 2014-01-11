@@ -44,6 +44,10 @@
 
             this.handleInput();
 
+            //if (Math.abs(this.vx) < 0.1 && Math.abs(this.vy) < 0.1) {
+                this.x += Math.sin(Ω.utils.now() / 400) * 0.5;
+            //}
+
             this.bullets = this.bullets.filter(function (b) {
                 return b.tick();
             });
@@ -108,9 +112,6 @@
 
                     this.fireFlash = 2;
                     this.y += 3; // Kick back
-                    //this.screen.backFx.push(
-                     //   new Ω.Shake(2, 4, 4)
-                    //);
                 }
             }
 
