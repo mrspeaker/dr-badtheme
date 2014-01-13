@@ -11,7 +11,7 @@
 
         ballot: 0,
 
-        sheet: new Ω.SpriteSheet("res/images/binary.png", 16, 16),
+        sheet: new Ω.SpriteSheet("res/images/binary.png", 20, 20),
 
         init: function (ballot, speed, x, y, angle) {
 

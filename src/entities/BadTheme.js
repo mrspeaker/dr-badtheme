@@ -22,7 +22,7 @@
 
         sheet: new Ω.SpriteSheet("res/images/baddies.png", 40, 30),
 
-        init: function (x, y, screen) {
+        init: function (x, y, shooting, screen) {
             this.x = x;
             this.targetY = Math.max(y, 0);
             this.y = y - 150;

@@ -10,9 +10,10 @@
 
     var BadPasser = BadTheme.extend({
 
-        init: function (x, y, screen) {
-            this._super(x, y, screen);
+        init: function (x, y, shooting, screen) {
+            this._super(x, y, shooting, screen);
             this.y = y - 150;
+            this.shooting = shooting;
             this.speedDescend = (Math.random() * 3 | 0) + 1;
         },
 
@@ -28,7 +29,9 @@
                     this.remove = true;
                 }
 
-                this.spawnVote(2 + (this.speedDescend * 0.5));
+                if (this.shooting) {
+                    this.spawnVote(2 + (this.speedDescend * 0.5));
+                }
             } else {
                 this.y -= this.hitTime;
             }

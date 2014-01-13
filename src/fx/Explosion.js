@@ -11,8 +11,9 @@
             this.r = (Math.random() * 40) + 10 | 0;
             this.x = x + (Math.random() * 20) | 0;
             this.y = y + (Math.random() * 20) | 0;
-            this.offColour = 0.1;
+            this.offColour = 0.15;
             this.dir = Math.random() - 0.5;
+            this.ySpeed = Math.random() + 1;
         },
 
         tick: function () {
@@ -20,7 +21,7 @@
             if (this.perc < 0) {
                 this.perc = 0;
             }
-            this.y += 1.5;
+            this.y += this.ySpeed;
             if (this.y > Ω.env.h) {
                 return false;
             }

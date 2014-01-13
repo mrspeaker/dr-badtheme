@@ -59,16 +59,16 @@
             var xo = 0,
                 yo = 0;
 
-            if (Ω.input.isDown("up")) {
+            if (Ω.input.isDown("up") || Ω.input.gamepad.buttons.dpad_up) {
                 yo -= this.ac;
             }
-            if (Ω.input.isDown("down")) {
+            if (Ω.input.isDown("down") || Ω.input.gamepad.buttons.dpad_down) {
                 yo += this.ac;
             }
-            if (Ω.input.isDown("right")) {
+            if (Ω.input.isDown("right") || Ω.input.gamepad.buttons.dpad_right) {
                 xo += this.ac;
             }
-            if (Ω.input.isDown("left")) {
+            if (Ω.input.isDown("left") || Ω.input.gamepad.buttons.dpad_left) {
                 xo -= this.ac;
             }
 
@@ -86,14 +86,14 @@
             this.y += this.vy;
 
             var now = Ω.utils.now();
-            if (Ω.input.isDown("fire")) {
+            if (Ω.input.isDown("fire") || Ω.input.gamepad.buttons.face_1) {
                 if (now - this.lastShot > this.shotRate) {
                     this.lastShot = now;
                     this.fire();
                 }
             }
 
-            if (Ω.input.pressed("swap")) {
+            if (Ω.input.pressed("swap") || Ω.input.gamepad.buttons.face_2) {
                 this.screen.flipVote();
             }
 

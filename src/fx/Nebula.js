@@ -25,10 +25,7 @@
         },
 
         render: function (gfx) {
-            var c = gfx.ctx;
-
             this.img.render(gfx, this.x, this.y);
-
         }
 
     });
