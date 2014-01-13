@@ -16,7 +16,7 @@
 
             Ω.input.bind({
                 "fire": ["space", "mouse1", "touch"],
-                "swap": [90],
+                "swap": [88],
                 "escape": "escape",
                 "left": "left",
                 "right": "right",

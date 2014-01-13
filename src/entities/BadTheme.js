@@ -55,7 +55,7 @@
                 if (this.state.first()) {
                     this.speedDescend = 1;
                     this.screen.backFx.push(
-                        new Ω.Shake(30, 10, 10)
+                        new Ω.Shake(15, 6, 6)
                     );
                 }
                 if (this.state.count == 4) {
@@ -71,14 +71,10 @@
                 break;
             }
 
-
             if (this.y > Ω.env.h) {
                 this.remove = true;
             }
 
-            if (this.remove) {
-                console.log("remove s", this.screen.baddies.length)
-            }
             return (!this.remove);
 
         },
