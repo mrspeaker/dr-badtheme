@@ -55,7 +55,7 @@
         },
 
         state_WAVETIMED: function () {
-            if (this.now - this.lastBaddie > 100 && this.screen.baddies.length < 6) {
+            if (this.now - this.lastBaddie > 100 && this.screen.baddies.length < 20) {
                this.lastBaddie = this.now;
                var Clazz = Math.random() < 0.7 ? window.BadPasser : window.BadTheme;
                this.screen.baddies.push(

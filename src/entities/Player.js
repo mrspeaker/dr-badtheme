@@ -128,6 +128,7 @@
                     }
                 }
                 e.remove = true;
+                this.screen.addPuff(e.x, e.y);
             }
 
             if (e instanceof window.Health) {

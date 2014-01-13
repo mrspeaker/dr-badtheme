@@ -23,6 +23,8 @@
         sheet: new Ω.SpriteSheet("res/images/baddies.png", 40, 30),
 
         init: function (x, y, shooting, screen) {
+
+            console.log("add s", screen.baddies.length);
             this.x = x;
             this.targetY = Math.max(y, 0);
             this.y = y - 150;
@@ -63,6 +65,9 @@
                 break;
             case "DEAD":
                 this.state_DEAD();
+                if (this.state.count > 2) {
+                    this.remove = true;
+                }
                 break;
             }
 
@@ -71,6 +76,9 @@
                 this.remove = true;
             }
 
+            if (this.remove) {
+                console.log("remove s", this.screen.baddies.length)
+            }
             return (!this.remove);
 
         },

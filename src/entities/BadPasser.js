@@ -11,6 +11,7 @@
     var BadPasser = BadTheme.extend({
 
         init: function (x, y, shooting, screen) {
+
             this._super(x, y, shooting, screen);
             this.y = y - 150;
             this.shooting = shooting;

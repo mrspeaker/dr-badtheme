@@ -22,6 +22,8 @@
             this.xspeed = speed * Math.cos(angle);
             this.yspeed = speed * Math.sin(angle);
 
+            this.setSize();
+
         },
 
         tick: function () {
@@ -33,29 +35,46 @@
 
         },
 
+        setSize: function () {
+            if (this.ballot === 1) {
+                this.w = 36;
+                this.h = 36;
+            } else {
+                this.w = 8;
+                this.h = 16;
+            }
+        },
+
         flip: function () {
             if (this.ballot === -1) {
                 return;
             }
             if (this.ballot === 0) {
                 this.ballot = 1;
+                this.x -= 10;
+                this.y -= 10;
             } else if (this.ballot === 1) {
                 this.ballot = 0;
+                this.x += 10;
+                this.y += 10;
             }
+
+            this.setSize();
         },
 
         render: function (gfx) {
-            var c = gfx.ctx;
-
-            //c.fillStyle = this.isOne ? "#444" : "#222";
-            //c.fillText(this.isOne ? "1" : "0", this.x - 2, this.y + this.h - 2);
-            //c.fillRect(this.x, this.y, this.w, this.h);
+            //var c = gfx.ctx;
 
             if (this.ballot === -1 && Ω.utils.toggle(200, 2)) {
                 return;
             }
 
-            this.sheet.render(gfx, this.ballot + 1, 0, this.x - 2, this.y);
+            var xo = this.ballot == 1 ? 10 : -3,
+                yo = this.ballot == 1 ? 10 : 0;
+
+            //c.strokeStyle = "red";
+            //c.strokeRect(this.x, this.y, this.w, this.h);
+            this.sheet.render(gfx, this.ballot + 1, 0, this.x + xo, this.y + yo);
 
         }
     });
